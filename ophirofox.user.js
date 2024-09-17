@@ -1,6 +1,5 @@
 // ==UserScript==
 // @version 2.4.26336.56903
-// @downloadURL https://github.com/minou-miaou/ophirofox-userscript/raw/main/ophirofox.user.js
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
