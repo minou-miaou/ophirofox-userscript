@@ -1,9 +1,7 @@
 // ==UserScript==
-// @name    OphirofoxScript
 // @version 2.4.26371.34
 // @author  Write
-// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
-// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @name    OphirofoxScript
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
