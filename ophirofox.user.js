@@ -1,7 +1,9 @@
 // ==UserScript==
-// @version 2.4.26418.31591
+// @version 2.4.26418.31592
 // @author  Write
 // @name    OphirofoxScript
+// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
@@ -155,7 +157,7 @@
      * */
 
     // Changer la variable par le nom de votre université. Voir la liste ci-dessous dans ophirofox_config_list.
-    const universityName = "Bibliotheque nationale et universitaire de Strasbourg"
+    const universityName = "BNF"
 
     /* ----------------
      *   HELPERS
