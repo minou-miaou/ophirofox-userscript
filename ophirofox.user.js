@@ -1,12 +1,12 @@
 // ==UserScript==
-// @version 2.4.26444.10764
+// @version 2.4.26474.25843
+// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
-// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
-// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @include https://nouveau.europresse.com/*
 // @include https://nouveau-europresse-com.essec.idm.oclc.org/*
 // @include https://nouveau-europresse-com.ezproxy.univ-catholille.fr/*
@@ -97,6 +97,8 @@
 // @include https://nouveau-europresse-com.ezproxy.vetagro-sup.fr/*
 // @include https://nouveau-europresse-com.ezproxy.utc.fr/*
 // @include https://nouveau-europresse-com.ezproxy.ulb.ac.be/*
+// @include https://nouveau-europresse-com.gutenberg.univ-lr.fr/*
+// @include https://nouveau-europresse-com.bpi.idm.oclc.org/*
 // @include https://www.lemonde.fr/*
 // @include https://www.liberation.fr/*
 // @include https://next.liberation.fr/*
@@ -217,8 +219,17 @@
         "name": "BNF",
         "AUTH_URL": "https://bnf.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=D000067U_1"
     }, {
+        "name": "Bibliothèque Publique d'Information (BPI)",
+        "AUTH_URL": "https://bpi.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=pompi"
+    }, {
+        "name": "Centrale Lyon",
+        "AUTH_URL": "https://ec-lyon.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=LYONT_7"
+    }, {
         "name": "CY Cergy Paris Université",
         "AUTH_URL": "https://bibdocs.u-cergy.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=U031547T_1"
+    }, {
+        "name": "École Centrale de Lyon (ECL)",
+        "AUTH_URL": "https://ec-lyon.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=LYONT_7"
     }, {
         "name": "École normale supérieure de Lyon (ENS Lyon)",
         "AUTH_URL": "https://acces.bibliotheque-diderot.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=ENSLYONT_1"
@@ -264,6 +275,9 @@
     }, {
         "name": "INSA Rennes",
         "AUTH_URL": "http://rproxy.insa-rennes.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=INSAT_1"
+    }, {
+        "name": "La Rochelle Université",
+        "AUTH_URL": "https://gutenberg.univ-lr.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=ROCHELLET_1"
     }, {
         "name": "Le Mans Université",
         "AUTH_URL": "https://login.doc-elec.univ-lemans.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=U031524T_1"
@@ -476,7 +490,7 @@
         "AUTH_URL": "https://login.ezproxy.univ-paris13.fr/login?url=http://nouveau.europresse.com/access/ip/default.aspx?un=paris13"
     }, {
         "name": "Université Savoie Mont Blanc",
-        "AUTH_URL": "http://univ-smb.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=savoieT_1"
+        "AUTH_URL": "https://univ-smb.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=savoieT_1"
     }, {
         "name": "Université de Technologie de Belfort-Montbéliard",
         "AUTH_URL": "https://ezproxy.utbm.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=UTBMT_2"
@@ -670,7 +684,9 @@
         "https://nouveau-europresse-com.ezproxy.univ-perp.fr/*".includes(hostname) ||
         "https://nouveau-europresse-com.ezproxy.vetagro-sup.fr/*".includes(hostname) ||
         "https://nouveau-europresse-com.ezproxy.utc.fr/*".includes(hostname) ||
-        "https://nouveau-europresse-com.ezproxy.ulb.ac.be/*".includes(hostname)) {
+        "https://nouveau-europresse-com.ezproxy.ulb.ac.be/*".includes(hostname) ||
+        "https://nouveau-europresse-com.gutenberg.univ-lr.fr/*".includes(hostname) ||
+        "https://nouveau-europresse-com.bpi.idm.oclc.org/*".includes(hostname)) {
 
         function removeMarkElements() {
             // Remove all the <mark> elements, but keep their contents
@@ -2077,10 +2093,12 @@
 
         pasteStyle(`
         .ophirofox-europresse {
-            background-color: #fed500;
+            background-color: #FEEB6F;
             padding: 1rem 1.5rem;
             color: #000;
             border: none;
+            border-radius: 3.6rem;
+            text-decoration: none;
             box-shadow: none;
             text-transform: uppercase;
             font-size: 1.2rem;
@@ -2095,8 +2113,7 @@
         }
         
         .ophirofox-europresse:hover, .ophirofox-europresse:active {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #FFC70F;
         }
         `);
     }
