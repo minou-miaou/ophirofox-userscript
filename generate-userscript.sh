@@ -18,6 +18,8 @@ indent() {
 SCRIPT=$(cat <<-END
 // ==UserScript==
 // @version $1
+// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
@@ -59,7 +61,7 @@ SCRIPT+=$'//
    * */
 
   // Changer la variable par le nom de votre université. Voir la liste ci-dessous dans ophirofox_config_list.
-  const universityName = "Bibliotheque nationale et universitaire de Strasbourg"
+  const universityName = "BNF"
 
   /* ----------------
    *   HELPERS
