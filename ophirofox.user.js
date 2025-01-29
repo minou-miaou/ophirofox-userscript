@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version 2.4.26499.27184
+// @version 2.4.26521.55204
 // @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @author  Write
@@ -99,6 +99,7 @@
 // @include https://nouveau-europresse-com.ezproxy.ulb.ac.be/*
 // @include https://nouveau-europresse-com.gutenberg.univ-lr.fr/*
 // @include https://nouveau-europresse-com.bpi.idm.oclc.org/*
+// @include https://nouveau-europresse-com.eztest.biblio.univ-evry.fr/*
 // @include https://www.lemonde.fr/*
 // @include https://www.liberation.fr/*
 // @include https://next.liberation.fr/*
@@ -146,6 +147,8 @@
 // @include https://www.nieuwsblad.be/*
 // @include https://www.hln.be/*
 // @include https://www.challenges.fr/*
+// @include https://www.arretsurimages.net/*
+// @include https://www.pressreader.com/*
 //
 // @run-at      document-start
 //
@@ -217,7 +220,9 @@
         "AUTH_URL": "https://connect.bm-lyon.fr/get/login?&access_list=LVAw&url=aHR0cHM6Ly9ub3V2ZWF1LmV1cm9wcmVzc2UuY29tL2FjY2Vzcy9odHRwcmVmL2RlZmF1bHQuYXNweD91bj1CTUxZT05BVV8x"
     }, {
         "name": "BNF",
-        "AUTH_URL": "https://bnf.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=D000067U_1"
+        "AUTH_URL": "https://bnf.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=D000067U_1",
+        "AUTH_URL_ARRETSURIMAGES": "www-arretsurimages-net.bnf.idm.oclc.org",
+        "AUTH_URL_PRESSREADER": "www-pressreader-com.bnf.idm.oclc.org"
     }, {
         "name": "Bibliothèque Publique d'Information (BPI)",
         "AUTH_URL": "https://bpi.idm.oclc.org/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=pompi"
@@ -441,6 +446,9 @@
     }, {
         "name": "Université Paris-Saclay",
         "AUTH_URL": "https://ezproxy.universite-paris-saclay.fr/login?url=http://nouveau.europresse.com/access/ip/default.aspx?un=U031535T_9"
+    }, {
+        "name": "Université Paris-Saclay (etu)",
+        "AUTH_URL": "https://eztest.biblio.univ-evry.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=U031535T_9"
     }, {
         "name": "Université Paul Sabatier, Toulouse III",
         "AUTH_URL": "https://docadis.univ-tlse3.fr/https/nouveau.europresse.com/access/ip/default.aspx?un=CAPITOLET_6"
@@ -687,7 +695,8 @@
         "https://nouveau-europresse-com.ezproxy.utc.fr/*".includes(hostname) ||
         "https://nouveau-europresse-com.ezproxy.ulb.ac.be/*".includes(hostname) ||
         "https://nouveau-europresse-com.gutenberg.univ-lr.fr/*".includes(hostname) ||
-        "https://nouveau-europresse-com.bpi.idm.oclc.org/*".includes(hostname)) {
+        "https://nouveau-europresse-com.bpi.idm.oclc.org/*".includes(hostname) ||
+        "https://nouveau-europresse-com.eztest.biblio.univ-evry.fr/*".includes(hostname)) {
 
         function removeMarkElements() {
             // Remove all the <mark> elements, but keep their contents
@@ -2182,7 +2191,7 @@
 
         window.addEventListener("load", function(event) {
             function extractKeywords() {
-                return document.querySelector('h1[itemprop="Headline"]').textContent;
+                return document.querySelector('h1').textContent;
             }
 
             async function createLink() {
@@ -2192,10 +2201,10 @@
             }
 
             function findPremiumBanner() {
-                const title = document.querySelector('.facade-container');
+                const title = document.querySelector('.rev-premium-tag-article-lt__container');
                 if (!title) return null;
-                const elems = title.querySelectorAll('span');
-                return [...elems].find((d) => d.textContent === 'Réservé aux abonnés');
+                const elems = title.querySelectorAll('p');
+                return [...elems].find((d) => d.textContent === 'Ce contenu est réservé aux abonnés');
             }
 
             async function onLoad() {
@@ -3270,6 +3279,128 @@
         
         .ophirofox-europresse:hover {
             color: #a6a6a6 !important;
+        }
+        `);
+    }
+
+    if ("https://www.arretsurimages.net/*".includes(hostname)) {
+
+        window.addEventListener("load", function(event) {
+            //Aknowledgment : arret-sur-images feature found already mostly done on https://github.com/Rohirrim03/ profile.
+            //BNF : Bibliothèque Nationale de France
+
+            /**
+             * @description create link <a> to BNF mirror
+             * @param {string} AUTH_URL_ARRETSURIMAGES
+             */
+            async function createLink(AUTH_URL_ARRETSURIMAGES) {
+                const span = document.createElement("span");
+                span.textContent = "Lire avec BNF";
+                span.className = "sub-stamp-component etiquette ophirofox-europresse";
+
+                const a = document.createElement("a");
+                var newUrl = new URL(window.location); //current page
+                newUrl.host = AUTH_URL_ARRETSURIMAGES //change only the domain name
+                newUrl.href
+                a.href = newUrl;
+
+                a.appendChild(span);
+
+                return a;
+            }
+
+            /**
+             * @description check DOM for article under paywall 
+             * @return {HTMLElement} DOM Premium Banner and head of the article
+             */
+            function findPremiumBanner() {
+                const article = document.querySelector(".article");
+                if (!article) return null;
+                const elems = article.querySelectorAll("span, mark");
+                const textToFind = ["réservé aux abonné.e.s", "Réservé à nos abonné.e.s"];
+
+                return [...elems].filter(d => textToFind.some(text => d.textContent.includes(text)))
+            }
+
+            /**@description check for BNF users. If yes, create link button */
+            async function onLoad() {
+
+                const config = await configurationsSpecifiques(['BNF'])
+                if (!config) return;
+                const reserve = findPremiumBanner();
+                if (!reserve) return;
+
+                for (const balise of reserve) {
+                    balise.parentElement.appendChild(await createLink(config.AUTH_URL_ARRETSURIMAGES));
+                }
+            }
+
+            setTimeout(function() {
+                onLoad().catch(console.error);
+            }, 1000);
+        });
+
+        pasteStyle(`
+        .ophirofox-europresse {
+            background-color: #f05246;
+            border: 1px #f05246 solid;
+            padding: calc(0.25em - 1px) 0.5em !important;
+            color: #fff;
+            font-family: "Merriweather", serif;
+            font-weight: 900 !important;
+            font-style: italic !important;
+            text-transform: none !important;
+        }
+        `);
+    }
+
+    if ("https://www.pressreader.com/*".includes(hostname)) {
+
+        window.addEventListener("load", function(event) {
+            async function createLink(AUTH_URL) {
+                const div = document.createElement("div");
+                div.className = "ophirofox-europresse"
+                const a = document.createElement("a");
+                a.textContent = "Cliquez pour lire avec BNF"
+                var newUrl = new URL(window.location); //current page
+                newUrl.host = AUTH_URL //change only the domain name
+                a.href = newUrl;
+
+                div.appendChild(a);
+                return div;
+            }
+
+            /**
+             * @description website navigation without window reload.
+             */
+            async function onLoad() {
+                const config = await configurationsSpecifiques(['BNF'])
+                if (!config) return;
+                //too much js dom updates everywere to choose a more specific DOM.element.
+                const element = document.querySelector('body');
+                if (!element) return;
+                element.insertAdjacentElement('beforeend', await createLink(config.AUTH_URL_PRESSREADER));
+            }
+
+            onLoad().catch(console.error)
+        });
+
+        pasteStyle(`
+        .ophirofox-europresse {
+          visibility: visible !important;
+          position: fixed;
+          text-align: center;
+          width: 100%;
+          top: 0px;
+          left: 0px;
+          z-index: 50;
+        }
+        .ophirofox-europresse > a {
+          color: #fff !important;
+          padding: 1px 20px;
+          font-weight: 600;
+          background-color: #2bc48c;
+          border-radius: 25px;
         }
         `);
     }
