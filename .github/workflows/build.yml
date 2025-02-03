@@ -76,10 +76,7 @@ jobs:
 
       - name: Modify el script
         working-directory: ophirofox
-        run: |
-          sed -i '3i // @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js' ./generate-userscript.sh
-          sed -i '4i // @updateURL	  https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js' ./generate-userscript.sh
-          sed -i -e 's/const universityName = "Bibliotheque nationale et universitaire de Strasbourg"/const universityName = "BNF"/' ./generate-userscript.sh
+        run: sed -i '3i \n// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js' ./generate-userscript.sh && sed -i '4i \n// @updateURL	  https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js' ./generate-userscript.sh && sed -i -e 's/const universityName = "Bibliotheque nationale et universitaire de Strasbourg"/const universityName = "BNF"/' ./generate-userscript.sh
 
       - name: Grant execution rights to generate-userscript.sh
         working-directory: ophirofox
