@@ -1,12 +1,10 @@
 // ==UserScript==
-// @version 2.4.26527.62969
+// @version 2.4.26533.45512
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
-// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
-// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @include https://nouveau.europresse.com/*
 // @include https://nouveau-europresse-com.essec.idm.oclc.org/*
 // @include https://nouveau-europresse-com.ezproxy.univ-catholille.fr/*
@@ -100,6 +98,7 @@
 // @include https://nouveau-europresse-com.gutenberg.univ-lr.fr/*
 // @include https://nouveau-europresse-com.bpi.idm.oclc.org/*
 // @include https://nouveau-europresse-com.eztest.biblio.univ-evry.fr/*
+// @include https://nouveau-europresse-com.ezproxy.uclouvain.be/*
 // @include https://www.lemonde.fr/*
 // @include https://www.liberation.fr/*
 // @include https://next.liberation.fr/*
@@ -535,10 +534,13 @@
         "AUTH_URL": "https://mabm.toulouse-metropole.fr/Portal/ASSARedirect.ashx?url=https://nouveau.europresse.com/access/httpref/default.aspx?un=bmtoulouseAU_1"
     }, {
         "name": "Métropole de Grenoble - Numothèque",
-        "AUTH_URL": "https://numotheque.grenoblealpesmetropole.fr/plateforme-redirect/BIB?url=https%3A%2F%2Fnouveau.europresse.com%2Faccess%2Fhttpref%2Fdefault.aspx?un=GRENOBLEU_2"
+        "AUTH_URL": "https://numotheque.grenoblealpesmetropole.fr/Default/redirection-contenu-europresse.aspx"
     }, {
         "name": "VetAgro Sup",
         "AUTH_URL": "https://ezproxy.vetagro-sup.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=U032869T_1"
+    }, {
+        "name": "UCLouvain",
+        "AUTH_URL": "https://nouveau-europresse-com.proxy.bib.uclouvain.be:2443"
     }];
 
     function getOphirofoxConfigByName(search_name) {
@@ -699,7 +701,8 @@
         "https://nouveau-europresse-com.ezproxy.ulb.ac.be/*".includes(hostname) ||
         "https://nouveau-europresse-com.gutenberg.univ-lr.fr/*".includes(hostname) ||
         "https://nouveau-europresse-com.bpi.idm.oclc.org/*".includes(hostname) ||
-        "https://nouveau-europresse-com.eztest.biblio.univ-evry.fr/*".includes(hostname)) {
+        "https://nouveau-europresse-com.eztest.biblio.univ-evry.fr/*".includes(hostname) ||
+        "https://nouveau-europresse-com.ezproxy.uclouvain.be/*".includes(hostname)) {
 
         function removeMarkElements() {
             // Remove all the <mark> elements, but keep their contents
