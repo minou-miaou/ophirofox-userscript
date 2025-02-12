@@ -5,6 +5,8 @@
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
+// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @updateURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @include https://nouveau.europresse.com/*
 // @include https://nouveau-europresse-com.essec.idm.oclc.org/*
 // @include https://nouveau-europresse-com.ezproxy.univ-catholille.fr/*
