@@ -74,6 +74,10 @@ jobs:
       - name: Copy generate-userscript.sh inside ophirofox dir
         run: cp ./generate-userscript.sh ./ophirofox/generate-userscript.sh
 
+      - name: Modify el script
+        working-directory: ophirofox
+        run: sed -i -e 's/\/\/ @grant   GM.deleteValue/\/\/ @grant   GM.deleteValue\n\/\/ @downloadURL	 https:\/\/github.com\/minou-miaou\/ophirofox-userscript\/raw\/refs\/heads\/main\/ophirofox.user.js\n\/\/ @updateURL	  https:\/\/github.com\/minou-miaou\/ophirofox-userscript\/raw\/refs\/heads\/main\/ophirofox.user.js/' -e 's/const universityName = "Bibliotheque nationale et universitaire de Strasbourg"/const universityName = "BNF"/' ./generate-userscript.sh
+
       - name: Grant execution rights to generate-userscript.sh
         working-directory: ophirofox
         run: chmod +x ./generate-userscript.sh
