@@ -1,10 +1,12 @@
 // ==UserScript==
-// @version 2.4.26546.33907
+// @version 2.4.26551.45883
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
 // @grant   GM.setValue
 // @grant   GM.deleteValue
+// @downloadURL	 https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
+// @updateURL	  https://github.com/minou-miaou/ophirofox-userscript/raw/refs/heads/main/ophirofox.user.js
 // @include https://nouveau.europresse.com/*
 // @include https://nouveau-europresse-com.essec.idm.oclc.org/*
 // @include https://nouveau-europresse-com.ezproxy.univ-catholille.fr/*
@@ -164,7 +166,7 @@
      * */
 
     // Changer la variable par le nom de votre université. Voir la liste ci-dessous dans ophirofox_config_list.
-    const universityName = "Bibliotheque nationale et universitaire de Strasbourg"
+    const universityName = "BNF"
 
     /* ----------------
      *   HELPERS
@@ -216,7 +218,7 @@
         "AUTH_URL": "http://res.banq.qc.ca/login?url=https://nouveau.eureka.cc/access/ip/default.aspx?un=bnat1"
     }, {
         "name": "Bibliotheque nationale et universitaire de Strasbourg",
-        "AUTH_URL": "http://acces-distant.bnu.fr/login?url=http://nouveau.europresse.com/access/ip/default.aspx?un=bnus"
+        "AUTH_URL": "https://acces-distant.bnu.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=bnus"
     }, {
         "name": "Bibliotheque municipale de Lyon",
         "AUTH_URL": "https://connect.bm-lyon.fr/get/login?&access_list=LVAw&url=aHR0cHM6Ly9ub3V2ZWF1LmV1cm9wcmVzc2UuY29tL2FjY2Vzcy9odHRwcmVmL2RlZmF1bHQuYXNweD91bj1CTUxZT05BVV8x"
