@@ -25,6 +25,7 @@ jobs:
         uses: pozetroninc/github-action-get-latest-release@master
         with:
           repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@master
         with:
