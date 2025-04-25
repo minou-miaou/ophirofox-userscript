@@ -1,5 +1,5 @@
 // ==UserScript==
-// @version 2.5.250407.2359
+// @version 2.5.250425.1414
 // @author  Write
 // @name    OphirofoxScript
 // @grant   GM.getValue
@@ -104,6 +104,7 @@
 // @include https://nouveau-europresse-com.iepnomade-2.grenet.fr/*
 // @include https://nouveau-europresse-com.bsg-ezproxy.univ-paris3.fr/*
 // @include https://nouveau-europresse-com.eu1.proxy.openathens.net/*
+// @include https://nouveau.europresse.com/access/ip/default.aspx?un=U033137T_1
 // @include https://www.lemonde.fr/*
 // @include https://www.liberation.fr/*
 // @include https://next.liberation.fr/*
@@ -254,6 +255,9 @@
     }, {
         "name": "École normale supérieure de Paris (ENS ULM)",
         "AUTH_URL": "https://proxy.rubens.ens.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=PSLT_1"
+    }, {
+        "name": "École polytechnique",
+        "AUTH_URL": "https://nouveau.europresse.com/access/ip/default.aspx?un=U033137T_1"
     }, {
         "name": "Conservatoire national des arts et métiers",
         "AUTH_URL": "https://proxybib-pp.cnam.fr/login?url=https://nouveau.europresse.com/access/ip/default.aspx?un=CNAM"
@@ -756,7 +760,8 @@
         "https://nouveau-europresse-com.ezproxy.uclouvain.be/*".includes(hostname) ||
         "https://nouveau-europresse-com.iepnomade-2.grenet.fr/*".includes(hostname) ||
         "https://nouveau-europresse-com.bsg-ezproxy.univ-paris3.fr/*".includes(hostname) ||
-        "https://nouveau-europresse-com.eu1.proxy.openathens.net/*".includes(hostname)) {
+        "https://nouveau-europresse-com.eu1.proxy.openathens.net/*".includes(hostname) ||
+        "https://nouveau.europresse.com/access/ip/default.aspx?un=U033137T_1".includes(hostname)) {
 
         function removeMarkElements() {
             // Remove all the <mark> elements, but keep their contents
