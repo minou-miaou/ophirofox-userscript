@@ -12,5 +12,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Modify el script
-        working-directory: /
+        working-directory: .
         run: sed -i -e '8i \/\/ @downloadURL	 https:\/\/github.com\/minou-miaou\/ophirofox-userscript\/raw\/refs\/heads\/main\/ophirofox.user.js\n\/\/ @updateURL	 https:\/\/github.com\/minou-miaou\/ophirofox-userscript\/raw\/refs\/heads\/main\/ophirofox.user.js' -e 's/const universityName = "Bibliotheque nationale et universitaire de Strasbourg"/const universityName = "BNF"/' ophirofox.user.js
